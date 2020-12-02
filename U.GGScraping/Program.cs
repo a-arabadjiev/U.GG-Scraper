@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using AngleSharp;
-using AngleSharp.Dom;
-
-namespace U.GGScraping
+﻿namespace U.GGScraping
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
+    using AngleSharp;
+
     class Program
     {
         static async Task Main()
@@ -122,35 +121,55 @@ namespace U.GGScraping
 
             string runeNamePattern = "(?<=The Rune |The Keystone )[A-Za-z :]+";
 
-            foreach (var element in primaryRuneTreeElements)
+            foreach (var primaryRuneTreeElement in primaryRuneTreeElements)
             {
-                foreach (var innerElement in element.Children)
+                foreach (var runeRowElement in primaryRuneTreeElement.Children)
                 {
-                    foreach (var innerInnerElement in innerElement.Children.Where(x => x.ClassName == "perk perk-active" || x.ClassName == "perk keystone perk-active"))
+                    foreach (var activeRuneElement in runeRowElement.Children.Where(x => x.ClassName == "perk perk-active" || x.ClassName == "perk keystone perk-active"))
                     {
-                        string runeName = Regex.Match(innerInnerElement.InnerHtml, runeNamePattern).ToString();
+                        string runeName = Regex.Match(activeRuneElement.InnerHtml, runeNamePattern).ToString();
                         primaryRunes.Add(runeName);
                     }
                 }
-            }            
-
-            //foreach (var element in primaryRuneTreeElements.Where(x => x.ClassName == "perk keystone perk - active"))
-            //{
-            //    Console.WriteLine(element.InnerHtml);
-            //    Console.WriteLine();
-            //}
+            }
 
             //SecondaryRuneTreeRunes
 
+            var secondaryRunes = new List<string>();
 
-            //Offense
+            var secondaryRuneTreeElements = document.QuerySelector(SelectorConstants.SecondaryRuneTreeSection).Children.ToList();
+            secondaryRuneTreeElements.RemoveAt(0);
 
+            foreach (var secondaryRuneTreeElement in secondaryRuneTreeElements)
+            {
+                foreach (var runeRowElement in secondaryRuneTreeElement.Children)
+                {
+                    foreach (var activeRuneElement in runeRowElement.Children.Where(x => x.ClassName == "perk perk-active"))
+                    {
+                        string runeName = Regex.Match(activeRuneElement.InnerHtml, runeNamePattern).ToString();
+                        secondaryRunes.Add(runeName);
+                    }
+                }
+            }
 
-            //Flex
+            //StatRunes
 
+            var statRunes = new List<string>();
 
-            //Defense
+            var statRuneTreeElements = document.QuerySelector(SelectorConstants.StatsRuneSection).Children.ToList();
+            string statRuneNamePatter = "(?<=alt=\")[A-Za-z ]+";
 
+            foreach (var statRuneElement in statRuneTreeElements)
+            {
+                foreach (var runeRowElement in statRuneElement.Children)
+                {
+                    foreach (var activeRuneElement in runeRowElement.Children.Where(x => x.ClassName == "shard shard-active"))
+                    {
+                        string runeName = Regex.Match(activeRuneElement.InnerHtml, statRuneNamePatter).ToString();
+                        statRunes.Add(runeName);
+                    }
+                }
+            }
 
             //SkillPriority
 
