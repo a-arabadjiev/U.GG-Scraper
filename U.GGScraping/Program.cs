@@ -11,14 +11,16 @@
     {
         static async Task Main()
         {
+            //Create browsing context
             var config = Configuration.Default.WithDefaultLoader();
             var context = BrowsingContext.New(config);
 
+            //Get html
             var document = await context.OpenAsync("https://u.gg/lol/champions/aatrox/build");
 
             //Test
 
-            var testElement = document.QuerySelector(SelectorConstants.SkillsSection);
+            //var testElement = document.QuerySelector(SelectorConstants.SkillsSection);
             //Console.WriteLine(testElement.InnerHtml);
 
             //Lane
@@ -116,7 +118,8 @@
             var primaryRunes = new List<string>();
 
             var primaryRuneTreeElements = document.QuerySelector(SelectorConstants.PrimaryRuneTreeSection).Children.ToList();
-            primaryRuneTreeElements.RemoveAt(0);
+
+            primaryRuneTreeElements.RemoveAt(0);  //removes unnecesary div element
 
             string runeNamePattern = "(?<=The Rune |The Keystone )[A-Za-z :]+";
 
@@ -137,7 +140,7 @@
             var secondaryRunes = new List<string>();
 
             var secondaryRuneTreeElements = document.QuerySelector(SelectorConstants.SecondaryRuneTreeSection).Children.ToList();
-            secondaryRuneTreeElements.RemoveAt(0);
+            secondaryRuneTreeElements.RemoveAt(0); //removes unnecesary div element
 
             foreach (var secondaryRuneTreeElement in secondaryRuneTreeElements)
             {
