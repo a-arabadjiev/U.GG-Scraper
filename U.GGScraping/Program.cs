@@ -18,8 +18,8 @@ namespace U.GGScraping
 
             //Test
 
-            //var elements = document.QuerySelector(SelectorConstants.ChampionRankingStatsSection);
-            //Console.WriteLine(elements.TextContent);
+            var testElement = document.QuerySelector(SelectorConstants.SummonerSpellsSection);
+            Console.WriteLine(testElement.InnerHtml);
 
             //Lane
 
@@ -48,15 +48,11 @@ namespace U.GGScraping
 
             string winRate = Regex.Match(championRankingStatsElement.TextContent, winRatePattern).ToString();
 
-            Console.WriteLine(winRate);
-
             //PickRate
 
             string pickRatePattern = "[0-9.]+(?=%Pick)";
 
             string pickRate = Regex.Match(championRankingStatsElement.TextContent, pickRatePattern).ToString();
-
-            Console.WriteLine(pickRate);
 
             //BanRate
 
@@ -64,18 +60,45 @@ namespace U.GGScraping
                    
             string banRate = Regex.Match(championRankingStatsElement.TextContent, banRatePattern).ToString();
 
-            Console.WriteLine(banRate);
-
             //Matches
 
             string totalMatchesPattern = "[0-9,]+(?=Matches)";
 
             string totalMatches = Regex.Match(championRankingStatsElement.TextContent, totalMatchesPattern).ToString();
 
-            Console.WriteLine(totalMatches);
+            //SummonerSpellsWinRate
 
-            //SummonerSpells
+            var summonerSpellsElement = document.QuerySelector(SelectorConstants.SummonerSpellsSection);
 
+            string summonersWinRatePattern = "[0-9.]+(?=% WR)";
+
+            string summonersWinRate = Regex.Match(summonerSpellsElement.TextContent, summonersWinRatePattern).ToString();
+
+            //SummonerSpellsTotalMatches
+
+            string summonersTotalMatchesPattern = "[0-9,]+(?= Matches)";
+
+            string summonersTotalMatches = Regex.Match(summonerSpellsElement.TextContent, summonersTotalMatchesPattern).ToString();
+
+            //SummonerSpellsD
+
+            string summonerSpellsPattern = "(?<=Summoner)[A-Za-z]+(?=.)";
+
+            var summonerSpells = Regex.Matches(summonerSpellsElement.InnerHtml, summonerSpellsPattern).ToArray();
+
+            string summonerSpellD = summonerSpells[0].ToString();
+            string summonerSpellF = summonerSpells[1].ToString();
+
+            Console.WriteLine(summonerSpellD);
+            Console.WriteLine(summonerSpellF);
+
+            //SummonerSpellF
+
+            //string summonerSpellFPattern = "[0-9,]+(?= Matches)";
+
+            //string summonerSpellF = Regex.Match(summonerSpellsElement.TextContent, summonerSpellFPattern).ToString();
+
+            //Console.WriteLine(summonerSpellF);
 
             //MainRuneTreeName
 
