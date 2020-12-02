@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -18,8 +19,8 @@ namespace U.GGScraping
 
             //Test
 
-            var testElement = document.QuerySelector(SelectorConstants.SummonerSpellsSection);
-            Console.WriteLine(testElement.InnerHtml);
+            var testElement = document.QuerySelector(SelectorConstants.RunesSection);
+            //Console.WriteLine(testElement.InnerHtml);
 
             //Lane
 
@@ -89,19 +90,57 @@ namespace U.GGScraping
 
             string summonersTotalMatches = Regex.Match(summonerSpellsElement.TextContent, summonersTotalMatchesPattern).ToString();
 
-            //MainRuneTreeName
+            //RuneTrees
 
+            var runesElement = document.QuerySelector(SelectorConstants.RunesSection);
 
-            //MainRuneTreeRunes
+            string mainRuneTreePattern = "(?<=The Rune Tree )[A-Z][a-z]+";
 
+            var runeTrees = Regex.Matches(runesElement.InnerHtml, mainRuneTreePattern).ToArray();
 
-            //SecondaryRuneTreeName
-
-
-            //SecondaryRuneTreeRunes
-
+            string mainRuneTree = runeTrees[0].ToString();
+            string secondaryRuneTree = runeTrees[1].ToString();
 
             //RunesWinRate
+
+            string runeWinRatePattern = "(?<=Build)[0-9.]+";
+
+            string runeWinRate = Regex.Match(runesElement.TextContent, runeWinRatePattern).ToString();
+
+            //RunesMatchesCount
+
+            string runeMatchesCountPattern = "[0-9,]+(?= Matches)";
+
+            string runeMatchesCount = Regex.Matches(runesElement.TextContent, runeMatchesCountPattern)[0].ToString();
+
+            //PrimaryRuneTreeRunes
+
+            var primaryRunes = new List<string>();
+
+            var primaryRuneTreeElements = document.QuerySelector(SelectorConstants.PrimaryRuneTreeSection).Children.ToList();
+            primaryRuneTreeElements.RemoveAt(0);
+
+            string runeNamePattern = "(?<=The Rune |The Keystone )[A-Za-z :]+";
+
+            foreach (var element in primaryRuneTreeElements)
+            {
+                foreach (var innerElement in element.Children)
+                {
+                    foreach (var innerInnerElement in innerElement.Children.Where(x => x.ClassName == "perk perk-active" || x.ClassName == "perk keystone perk-active"))
+                    {
+                        string runeName = Regex.Match(innerInnerElement.InnerHtml, runeNamePattern).ToString();
+                        primaryRunes.Add(runeName);
+                    }
+                }
+            }            
+
+            //foreach (var element in primaryRuneTreeElements.Where(x => x.ClassName == "perk keystone perk - active"))
+            //{
+            //    Console.WriteLine(element.InnerHtml);
+            //    Console.WriteLine();
+            //}
+
+            //SecondaryRuneTreeRunes
 
 
             //Offense

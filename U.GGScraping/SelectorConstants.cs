@@ -10,6 +10,8 @@
 
         public const string RunesSection = "div.champion-profile-page > div > div.content-section.content-section_no-padding.grid-1";
 
+        public const string PrimaryRuneTreeSection = "div.rune-trees-container-2.media-query.media-query_MOBILE_LARGE__DESKTOP_LARGE > div:nth-child(1) > div";
+
         public const string CounterChampionsSection = "div.champion-profile-page > div > div.content-section.toughest-matchups.undefined > div.matchups";
 
         public const string SkillsSection = "div.champion-profile-page > div > div.content-section.content-section_no-padding.recommended-build_skills";
