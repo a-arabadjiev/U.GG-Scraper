@@ -18,13 +18,12 @@
 
             //Test
 
-            var testElement = document.QuerySelector(SelectorConstants.RunesSection);
+            var testElement = document.QuerySelector(SelectorConstants.SkillsSection);
             //Console.WriteLine(testElement.InnerHtml);
 
             //Lane
 
-            string championHeaderSelector = SelectorConstants.ChampionHeader;
-            var championHeaderElement = document.QuerySelector(championHeaderSelector);
+            var championHeaderElement = document.QuerySelector(SelectorConstants.ChampionHeader);
 
             string lanePattern = "(?<=for )[A-Z]{1}[a-z]+";
 
@@ -60,11 +59,11 @@
                    
             string banRate = Regex.Match(championRankingStatsElement.TextContent, banRatePattern).ToString();
 
-            //Matches
+            //MatchesCount
 
-            string totalMatchesPattern = "[0-9,]+(?=Matches)";
+            string matchesCountPattern = "[0-9,]+(?=Matches)";
 
-            string totalMatches = Regex.Match(championRankingStatsElement.TextContent, totalMatchesPattern).ToString();
+            string matchesCount = Regex.Match(championRankingStatsElement.TextContent, matchesCountPattern).ToString();
 
             //SummonerSpells
 
@@ -173,6 +172,30 @@
 
             //SkillPriority
 
+            var skills = new List<string>();
+
+            var skillsSectionElement = document.QuerySelector(SelectorConstants.SkillsSection);
+
+            string skillsPattern = "[A-Z]{1}(?=:)";
+            
+            var skillElements = Regex.Matches(skillsSectionElement.InnerHtml, skillsPattern).ToArray();
+
+            foreach (var skill in skillElements)
+            {
+                skills.Add(skill.ToString());
+            }
+
+            //SkillsWinRate
+
+            string skillsWinRatioPattern = "[0-9.]+(?=%)";
+
+            string skillsWinRatio = Regex.Match(skillsSectionElement.InnerHtml, skillsWinRatioPattern).ToString();
+
+            //SkillsMatchesCount
+
+            string skillsMatchesCountPattern = "[0-9,]+(?= Matches)";
+
+            string skillsMatchesCount = Regex.Match(skillsSectionElement.InnerHtml, skillsMatchesCountPattern).ToString();
 
             //StartingItems
 

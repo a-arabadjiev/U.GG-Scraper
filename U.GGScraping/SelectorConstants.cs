@@ -18,7 +18,7 @@
 
         public const string CounterChampionsSection = "div.champion-profile-page > div > div.content-section.toughest-matchups.undefined > div.matchups";
 
-        public const string SkillsSection = "div.champion-profile-page > div > div.content-section.content-section_no-padding.recommended-build_skills";
+        public const string SkillsSection = "div.champion-profile-page > div > div.content-section.content-section_no-padding.recommended-build_skills > div.content-section_content.skill-priority > div.skill-priority_content";
 
         public const string StartingAndCoreItemsSection = "div.champion-profile-page > div > div.content-section.content-section_no-padding.recommended-build_items.media-query.media-query_TABLET__DESKTOP_SMALL > div.content-section_content.starting-items";
 
