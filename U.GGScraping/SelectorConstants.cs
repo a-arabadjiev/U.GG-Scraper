@@ -24,14 +24,5 @@
 
         //Skills section
         public const string SkillsSection = "div.champion-profile-page > div > div.content-section.content-section_no-padding.recommended-build_skills > div.content-section_content.skill-priority > div.skill-priority_content";
-
-        //Items section
-        public const string StartingAndCoreItemsSection = "div.champion-profile-page > div > div.content-section.content-section_no-padding.recommended-build_items.media-query.media-query_TABLET__DESKTOP_SMALL > div.content-section_content.starting-items";
-
-        public const string FourthItemSection = "div.champion-profile-page > div > div.content-section.content-section_no-padding.recommended-build_items.media-query.media-query_TABLET__DESKTOP_SMALL > div.content-section_content.item-options.item-options-1";
-
-        public const string FifthItemSection = "div.champion-profile-page > div > div.content-section.content-section_no-padding.recommended-build_items.media-query.media-query_TABLET__DESKTOP_SMALL > div.content-section_content.item-options.item-options-2";
-
-        public const string SixthItemSection = "div.champion-profile-page > div > div.content-section.content-section_no-padding.recommended-build_items.media-query.media-query_TABLET__DESKTOP_SMALL > div.content-section_content.item-options.item-options-3";
     }
 }

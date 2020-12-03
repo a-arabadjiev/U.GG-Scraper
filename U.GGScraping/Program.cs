@@ -20,8 +20,8 @@
 
             //Test
 
-            //var testElement = document.QuerySelector(SelectorConstants.SkillsSection);
-            //Console.WriteLine(testElement.InnerHtml);
+            var testElement = document.QuerySelector(SelectorConstants.CounterChampionsSection);
+            //Console.WriteLine(testElement.TextContent);
 
             //Lane
 
@@ -58,7 +58,7 @@
             //BanRate
 
             string banRatePattern = "[0-9.]+(?=%Ban)";
-                   
+
             string banRate = Regex.Match(championRankingStatsElement.TextContent, banRatePattern).ToString();
 
             //MatchesCount
@@ -180,7 +180,7 @@
             var skillsSectionElement = document.QuerySelector(SelectorConstants.SkillsSection);
 
             string skillsPattern = "[A-Z]{1}(?=:)";
-            
+
             var skillElements = Regex.Matches(skillsSectionElement.InnerHtml, skillsPattern).ToArray();
 
             foreach (var skill in skillElements)
@@ -200,21 +200,26 @@
 
             string skillsMatchesCount = Regex.Match(skillsSectionElement.InnerHtml, skillsMatchesCountPattern).ToString();
 
-            //StartingItems
 
+            //CounterChampions
+            List<string> counterChampions = new List<string>();
 
-            //MythicAndCoreItems
+            var counterChampionsSectionElement = document.QuerySelector(SelectorConstants.CounterChampionsSection);
 
+            string bestCounterChampionPattern = "[A-Za-z]+(?=[0-9])"; //TODO: Improve regex
 
-            //FourthItemOptions
+            string bestCounterChampion = Regex.Match(counterChampionsSectionElement.TextContent, bestCounterChampionPattern).ToString();
 
+            counterChampions.Add(bestCounterChampion);
 
-            //FifthItemOptions
+            string counterChampionsPattern = "(?<=Matches)[A-Za-z]+(?=[0-9])";
 
+            var counterChampionElements = Regex.Matches(counterChampionsSectionElement.TextContent, counterChampionsPattern).ToArray();
 
-            //SixthItemOptions
-
-
+            foreach (var counterChamp in counterChampionElements)
+            {
+                counterChampions.Add(counterChamp.ToString());
+            }
         }
     }
 }
