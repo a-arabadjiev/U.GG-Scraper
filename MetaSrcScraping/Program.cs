@@ -65,11 +65,6 @@
 
                 itemWinRateKvp[item] = winRate;
             }
-
-            foreach (var item in itemWinRateKvp)
-            {
-                Console.WriteLine($"{item.Key} - {item.Value}");
-            }
         }
     }
 }
