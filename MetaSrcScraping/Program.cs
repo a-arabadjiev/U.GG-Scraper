@@ -17,7 +17,7 @@
             var context = BrowsingContext.New(config);
 
             //Get html
-            var document = await context.OpenAsync("https://www.metasrc.com/5v5/na/champion/aatrox/top");
+            var document = await context.OpenAsync("https://www.metasrc.com/5v5/na/champion/nami/support");
 
             //Test
 
@@ -56,12 +56,12 @@
             var mainItemsSectionElements = document.QuerySelector(SelectorConstants.MainItemsSection).Children;
 
             string mainItemPattern = "[A-Za-z ']+(?=[0-9]+ [0-9]+)";
-            string mainItemWinRatePattern = @"(?<=\+)[0-9]+(?=%)";
+            string mainItemWinRatePattern = @"(?<=>)[0-9]+(?=%<\/div>)";
 
             foreach (var itemElement in mainItemsSectionElements)
             {
                 string item = Regex.Match(itemElement.TextContent, mainItemPattern).ToString();
-                string winRate = Regex.Match(itemElement.TextContent, mainItemWinRatePattern).ToString();
+                string winRate = Regex.Match(itemElement.InnerHtml, mainItemWinRatePattern).ToString();
 
                 itemWinRateKvp[item] = winRate;
             }

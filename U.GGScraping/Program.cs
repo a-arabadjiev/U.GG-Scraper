@@ -15,7 +15,7 @@
             var config = Configuration.Default.WithDefaultLoader();
             var context = BrowsingContext.New(config);
 
-            string championName = "akali";
+            string championName = "taliyah";
 
             await GetChampionStatistics(context, championName);
         }
@@ -40,7 +40,7 @@
 
             var championHeaderElement = document.QuerySelector(SelectorConstants.ChampionHeader);
 
-            string lanePattern = "(?<=for )[A-Z]{1}[a-z]+";
+            string lanePattern = "(?<=for )[A-Za-z]+(?=,)";
 
             string lane = Regex.Match(championHeaderElement.TextContent, lanePattern).ToString();
 
@@ -72,7 +72,9 @@
 
             string banRatePattern = "[0-9.]+(?=%Ban)";
 
-            string banRate = Regex.Match(championRankingStatsElement.TextContent, banRatePattern).ToString();
+            Console.WriteLine(championRankingStatsElement.TextContent);
+
+            double banRate = double.Parse(Regex.Match(championRankingStatsElement.TextContent, banRatePattern).ToString());
 
             //MatchesCount
 
@@ -236,53 +238,53 @@
 
             //Print Data
 
-            Console.WriteLine($"Lane - {lane}");
-            Console.WriteLine($"Tier - {tier}");
-            Console.WriteLine($"Patch - {patch}");
-            Console.WriteLine($"ChampWinRate - {winRate}");
-            Console.WriteLine($"ChampPickRate - {pickRate}");
+            //Console.WriteLine($"Lane - {lane}");
+            //Console.WriteLine($"Tier - {tier}");
+            //Console.WriteLine($"Patch - {patch}");
+            //Console.WriteLine($"ChampWinRate - {winRate}");
+            //Console.WriteLine($"ChampPickRate - {pickRate}");
             Console.WriteLine($"ChampBanRate - {banRate}");
-            Console.WriteLine($"ChampMatchesCount - {matchesCount}");
-            Console.WriteLine($"SummonerSpells - {summonerSpellD} {summonerSpellF}");
-            Console.WriteLine($"SummonerSpellsWinRate - {summonersWinRate}");
-            Console.WriteLine($"SummonerSpellsTotalMatches - {summonersTotalMatches}");
-            Console.WriteLine($"MainRuneTree - {mainRuneTree}");
-            Console.WriteLine($"SecondaryRuneTree - {secondaryRuneTree}");
-            Console.WriteLine($"RunesWinRate - {runeWinRate}");
-            Console.WriteLine($"RunesMatchesCount - {runeMatchesCount}");
+            //Console.WriteLine($"ChampMatchesCount - {matchesCount}");
+            //Console.WriteLine($"SummonerSpells - {summonerSpellD} {summonerSpellF}");
+            //Console.WriteLine($"SummonerSpellsWinRate - {summonersWinRate}");
+            //Console.WriteLine($"SummonerSpellsTotalMatches - {summonersTotalMatches}");
+            //Console.WriteLine($"MainRuneTree - {mainRuneTree}");
+            //Console.WriteLine($"SecondaryRuneTree - {secondaryRuneTree}");
+            //Console.WriteLine($"RunesWinRate - {runeWinRate}");
+            //Console.WriteLine($"RunesMatchesCount - {runeMatchesCount}");
 
-            Console.WriteLine("Primary Runes:");
-            foreach (var rune in primaryRunes)
-            {
-                Console.WriteLine($"--{rune}");
-            }
+            //Console.WriteLine("Primary Runes:");
+            //foreach (var rune in primaryRunes)
+            //{
+            //    Console.WriteLine($"--{rune}");
+            //}
 
-            Console.WriteLine("Secondary Runes:");
-            foreach (var rune in secondaryRunes)
-            {
-                Console.WriteLine($"--{rune}");
-            }
+            //Console.WriteLine("Secondary Runes:");
+            //foreach (var rune in secondaryRunes)
+            //{
+            //    Console.WriteLine($"--{rune}");
+            //}
 
-            Console.WriteLine("Stat Runes:");
-            foreach (var rune in statRunes)
-            {
-                Console.WriteLine($"--{rune}");
-            }
+            //Console.WriteLine("Stat Runes:");
+            //foreach (var rune in statRunes)
+            //{
+            //    Console.WriteLine($"--{rune}");
+            //}
 
-            Console.WriteLine("Skills:");
-            foreach (var skill in skills)
-            {
-                Console.WriteLine($"--{skill}");
-            }
+            //Console.WriteLine("Skills:");
+            //foreach (var skill in skills)
+            //{
+            //    Console.WriteLine($"--{skill}");
+            //}
 
-            Console.WriteLine($"SkillsWinRate - {skillsWinRatio}");
-            Console.WriteLine($"SkillsMatchesCount - {skillsMatchesCount}");
+            //Console.WriteLine($"SkillsWinRate - {skillsWinRatio}");
+            //Console.WriteLine($"SkillsMatchesCount - {skillsMatchesCount}");
 
-            Console.WriteLine("Counter Champions:");
-            foreach (var champion in counterChampions)
-            {
-                Console.WriteLine($"--{champion}");
-            }
+            //Console.WriteLine("Counter Champions:");
+            //foreach (var champion in counterChampions)
+            //{
+            //    Console.WriteLine($"--{champion}");
+            //}
         }
     }
 }
